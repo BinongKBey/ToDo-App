@@ -13,7 +13,8 @@ export default function () {
 const styles = StyleSheet.create({
     header: {
         width: '100%',
-        padding: 20,
+        paddingTop: 50,
+        paddingBottom: 20,
         backgroundColor: '#f44336'
     },
     title: {

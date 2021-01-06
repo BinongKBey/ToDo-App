@@ -16,7 +16,7 @@ export default function App() {
   ])
 
   const addItem = () => {
-    if (name.length > 3) {
+    if (name.length >= 3) {
       const newItems = [{ name: name, key: Math.random().toString() }, ...items]
       setItems(newItems)
       Keyboard.dismiss()
@@ -33,9 +33,9 @@ export default function App() {
       return prevItems.filter((item) => item.key != key)
     })
   }
-  const toggleStroke = () => {
-    setCrossed(!crossed)
-  }
+  // const toggleStroke = () => {
+  //   setCrossed(!crossed)
+  // }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -46,10 +46,11 @@ export default function App() {
           <Button title="Add" onPress={addItem} />
         </View>
         <View style={styles.body}>
-          {/* {name ? <></> : <Text style={styles.bodyText1}>Add Something</Text>} */}
+          {items ? <></> : <Text style={styles.emptyText}>Add Something</Text>}
           <FlatList style={styles.list} data={items} renderItem={({ item }) => {
             return (
-              <TouchableOpacity style={styles.item} onPress={toggleStroke}>
+              // <TouchableOpacity style={styles.item} onPress={toggleStroke}>
+              <TouchableOpacity style={styles.item}>
                 <Text style={crossed ? styles.itemTextCrossed : styles.itemText}>{item.name}</Text>
                 <TouchableOpacity onPress={() => removeItem(item.key)}>
                   <MaterialIcons size={20} color='white' name='delete' />
@@ -64,6 +65,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  emptyText: {
+    color: 'red',
+    fontSize: 18,
+  },
   list: {
     flex: 1,
   },
@@ -95,11 +100,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   header: {
-    // backgroundColor: '#9e9e9e',
-    padding: 20,
+    padding: 10,
     borderStyle: 'dashed',
-    borderBottomWidth: 2,
-    // marginBottom: 10,
     textAlign: 'center',
     width: '100%'
   },
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '100%',
     fontSize: 20,
-    marginBottom: 4,
+    marginBottom: 10,
   },
   body: {
     backgroundColor: '#fafafa',
